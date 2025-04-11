@@ -56,7 +56,7 @@ const Home = () => {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Link href="/register" className="w-full">
+                  <Link to="/register" className="w-full">
                     <Button className="w-full">Sign Up Now</Button>
                   </Link>
                 </CardFooter>
@@ -77,7 +77,7 @@ const Home = () => {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Link href="/login" className="w-full">
+                  <Link to="/login" className="w-full">
                     <Button className="w-full" variant="outline">
                       Login
                     </Button>
@@ -98,7 +98,7 @@ const Home = () => {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Link href="/login" className="w-full">
+                  <Link to="/login" className="w-full">
                     <Button className="w-full" variant="outline">
                       Admin Login
                     </Button>
