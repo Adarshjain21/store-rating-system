@@ -1,15 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Home, LogOut, Settings, Star, Store, User } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import Axios from "../utils/Axios";
+import {
+  Activity,
+  Home,
+  LogOut,
+  Settings,
+  Store,
+  User,
+  Users,
+} from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 import SummaryApi from "../common/SummaryApi";
+import Axios from "../utils/Axios";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-const UserLayout = ({ children }) => {
+export function AdminLayout({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const [user, setUser] = useState()
+  const [user, setUser] = useState();
 
   const handleLogout = async () => {
     try {
@@ -19,6 +28,7 @@ const UserLayout = ({ children }) => {
 
       if (response.data.success) {
         localStorage.clear();
+        
         toast(response.data.message);
         
         navigate("/login");
@@ -32,7 +42,7 @@ const UserLayout = ({ children }) => {
     try {
       const response = await Axios({
         ...SummaryApi.getUserDetails,
-      });      
+      });
 
       setUser(response.data);
     } catch (error) {
@@ -49,11 +59,11 @@ const UserLayout = ({ children }) => {
       <header className="sticky top-0 z-10 bg-background border-b">
         <div className="container flex h-16 items-center px-4 sm:px-6 lg:px-8">
           <Link
-            to="/user/dashboard"
+            to="/admin/dashboard"
             className="flex items-center gap-2 font-semibold"
           >
-            <Star className="h-6 w-6" />
-            <span>Store Rating System</span>
+            <Activity className="h-6 w-6" />
+            <span>Store Rating Admin</span>
           </Link>
           <div className="ml-auto flex items-center gap-4">
             {user && (
@@ -71,10 +81,10 @@ const UserLayout = ({ children }) => {
       <div className="flex flex-1">
         <aside className="w-64 border-r bg-muted/40 hidden md:block">
           <nav className="grid gap-2 p-4">
-            <Link to="/user/dashboard">
+            <Link to="/admin/dashboard">
               <Button
                 variant={
-                  location.pathname === "/user/dashboard"
+                  location.pathname === "/admin/dashboard"
                     ? "secondary"
                     : "ghost"
                 }
@@ -84,10 +94,21 @@ const UserLayout = ({ children }) => {
                 Dashboard
               </Button>
             </Link>
-            <Link to="/user/stores">
+            <Link to="/admin/users">
               <Button
                 variant={
-                  location.pathname === "/user/stores" ? "secondary" : "ghost"
+                  location.pathname === "/admin/users" ? "secondary" : "ghost"
+                }
+                className="w-full justify-start"
+              >
+                <Users className="mr-2 h-4 w-4" />
+                Users
+              </Button>
+            </Link>
+            <Link to="/admin/stores">
+              <Button
+                variant={
+                  location.pathname === "/admin/stores" ? "secondary" : "ghost"
                 }
                 className="w-full justify-start"
               >
@@ -95,21 +116,10 @@ const UserLayout = ({ children }) => {
                 Stores
               </Button>
             </Link>
-            <Link to="/user/ratings">
+            <Link to="/admin/profile">
               <Button
                 variant={
-                  location.pathname === "/user/ratings" ? "secondary" : "ghost"
-                }
-                className="w-full justify-start"
-              >
-                <Star className="mr-2 h-4 w-4" />
-                My Ratings
-              </Button>
-            </Link>
-            <Link to="/user/profile">
-              <Button
-                variant={
-                  location.pathname === "/user/profile" ? "secondary" : "ghost"
+                  location.pathname === "/admin/profile" ? "secondary" : "ghost"
                 }
                 className="w-full justify-start"
               >
@@ -117,10 +127,12 @@ const UserLayout = ({ children }) => {
                 My Profile
               </Button>
             </Link>
-            <Link to="/user/settings">
+            <Link to="/admin/settings">
               <Button
                 variant={
-                  location.pathname === "/user/settings" ? "secondary" : "ghost"
+                  location.pathname === "/admin/settings"
+                    ? "secondary"
+                    : "ghost"
                 }
                 className="w-full justify-start"
               >
@@ -134,6 +146,4 @@ const UserLayout = ({ children }) => {
       </div>
     </div>
   );
-};
-
-export default UserLayout;
+}

@@ -7,6 +7,8 @@ import helmet from "helmet";
 // import { PrismaClient } from "./generated/prisma/index.js";
 import { PrismaClient } from "@prisma/client";
 import userRouter from "./routes/user.route.js";
+import adminRouter from "./routes/admin.route.js";
+import storeRouter from "./routes/store.route.js";
 // import connectDB from "./db/index.js";
 dotenv.config();
 
@@ -55,6 +57,8 @@ const PORT = 8080 || process.env.PORT;
 // });
 
 app.use("/api/user", userRouter);
+app.use("/api/admin", adminRouter);
+app.use("/api/store", storeRouter);
 
 app.get("/", (req, res) => {
   res.json({

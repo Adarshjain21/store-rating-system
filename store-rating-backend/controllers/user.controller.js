@@ -7,8 +7,8 @@ export async function registerUserController(req, res) {
     const { name, email, password, address } = req.body;
 
     const requiredFields = ["name", "email", "password", "address"];
-    const missingFields = requiredFields.filter(field => !req.body[field]);
-    
+    const missingFields = requiredFields.filter((field) => !req.body[field]);
+
     if (missingFields.length > 0) {
       return res.json({
         message: `Please provide ${missingFields.join(", ")}.`,
@@ -85,6 +85,8 @@ export async function loginController(req, res) {
       });
     }
 
+    console.log("user88", user);
+    
     const checkPassword = await bcryptjs.compare(password, user.password);
 
     if (!checkPassword) {
@@ -95,7 +97,10 @@ export async function loginController(req, res) {
       });
     }
 
-    const accessToken = await generateAccessToken(user._id);
+    console.log(user);
+    
+
+    const accessToken = await generateAccessToken(user.id);
 
     const cookiesOption = {
       httpOnly: true,
@@ -110,7 +115,7 @@ export async function loginController(req, res) {
       error: false,
       success: true,
       data: user,
-      accessToken: accessToken
+      accessToken: accessToken,
     });
   } catch (error) {
     return res.status(500).json({
@@ -144,5 +149,31 @@ export async function logoutController(req, res) {
       error: true,
       details: error.message || error,
     });
+  }
+}
+
+export async function getUserDetails(req, res) {
+  const userId = req.userId;
+
+  try {
+    const currentUser = await db.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+  
+    if (!currentUser) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+  
+    return res.status(200).json({
+      id: currentUser.id,
+      name: currentUser.name,
+      email: currentUser.email,
+      role: currentUser.role,
+    });
+  } catch (error) {
+    console.error("Error getting user details:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 }
