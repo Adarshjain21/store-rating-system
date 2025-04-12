@@ -120,3 +120,29 @@ export async function loginController(req, res) {
     });
   }
 }
+
+export async function logoutController(req, res) {
+  try {
+    const cookiesOptions = {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None", // Allows cross-site cookies
+    };
+
+    // Clear the access token cookie
+    res.clearCookie("accessToken", cookiesOptions);
+
+    return res.status(200).json({
+      message: "Logged out successfully",
+      success: true,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Logout failed",
+      success: false,
+      error: true,
+      details: error.message || error,
+    });
+  }
+}

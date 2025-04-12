@@ -7,11 +7,13 @@ const auth = async (req, res, next) => {
 
     if (!token) {
       return res.status(401).json({
-        message: "Provide token",
+        message: "Token not provided",
+        success: false,
+        error: true,
       });
     }
 
-    const decode = await jwt.verify(token, process.env.SECRET_KEY_ACCESS_TOKEN);
+    const decode = jwt.verify(token, process.env.SECRET_KEY_ACCESS_TOKEN);
 
     if (!decode) {
       return res.status(401).json({
