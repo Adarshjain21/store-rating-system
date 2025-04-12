@@ -106,10 +106,10 @@ const UserLayout = ({ children }) => {
                 My Ratings
               </Button>
             </Link>
-            <Link to="/user/profile">
+            <Link to="/myprofile">
               <Button
                 variant={
-                  location.pathname === "/user/profile" ? "secondary" : "ghost"
+                  location.pathname === "/myProfile" ? "secondary" : "ghost"
                 }
                 className="w-full justify-start"
               >

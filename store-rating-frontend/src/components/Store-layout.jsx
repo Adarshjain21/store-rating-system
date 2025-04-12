@@ -95,10 +95,10 @@ export function StoreLayout({ children }) {
                 Ratings
               </Button>
             </Link>
-            <Link to="/store/profile">
+            <Link to="/myprofile">
               <Button
                 variant={
-                  location.pathname === "/store/profile" ? "secondary" : "ghost"
+                  location.pathname === "/myProfile" ? "secondary" : "ghost"
                 }
                 className="w-full justify-start"
               >

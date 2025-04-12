@@ -116,10 +116,10 @@ export function AdminLayout({ children }) {
                 Stores
               </Button>
             </Link>
-            <Link to="/admin/profile">
+            <Link to="/myprofile">
               <Button
                 variant={
-                  location.pathname === "/admin/profile" ? "secondary" : "ghost"
+                  location.pathname === "/myprofile" ? "secondary" : "ghost"
                 }
                 className="w-full justify-start"
               >

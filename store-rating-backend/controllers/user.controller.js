@@ -171,6 +171,7 @@ export async function getUserDetails(req, res) {
       name: currentUser.name,
       email: currentUser.email,
       role: currentUser.role,
+      address: currentUser.address
     });
   } catch (error) {
     console.error("Error getting user details:", error);

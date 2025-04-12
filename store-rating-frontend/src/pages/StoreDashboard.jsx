@@ -13,7 +13,7 @@ export default function StoreDashboard() {
         <div className="flex items-center justify-between">
           <h2 className="text-3xl font-bold tracking-tight">Store Dashboard</h2>
           <div className="flex items-center gap-2">
-            <Link href="/store/profile">
+            <Link to="/myProfile">
               <Button variant="outline">My Profile</Button>
             </Link>
           </div>
